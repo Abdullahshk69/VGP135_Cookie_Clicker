@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PassivePowerUp : MonoBehaviour
+public class PassivePowerUp : PowerUp
 {
-    [SerializeField] private int baseCost;
-    [SerializeField] private int basePower;
-
     float timer = 0.0f;
+
+    private void Start()
+    {
+        currentCost = cost;
+    }
 
     private void Update()
     {
@@ -15,17 +17,7 @@ public class PassivePowerUp : MonoBehaviour
         if(timer>1f)
         {
             timer = 0.0f;
-            GameManager.Instance.ScorePoints(basePower);
-        }
-    }
-
-    public void OnUpgrade()
-    {
-        if(GameManager.Instance.points >= baseCost)
-        {
-            GameManager.Instance.ScorePoints(-baseCost);
-            baseCost *= baseCost;
-            basePower *= 2;
+            GameManager.Instance.ScorePoints(currentPower);
         }
     }
 }
